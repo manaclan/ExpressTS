@@ -6,7 +6,7 @@ const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const httpStatus = require('http-status');
-const config = require('./config/config');
+import config from "./config/config";
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
 const { authLimiter } = require('./middlewares/rateLimiter');
@@ -53,10 +53,7 @@ if (config.env === 'production') {
 // v1 api routes
 app.use('/v1', routes);
 
-// send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-});
+
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
